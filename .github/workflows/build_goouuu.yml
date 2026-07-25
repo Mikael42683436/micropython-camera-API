@@ -12,22 +12,13 @@ jobs:
           submodules: recursive
 
       - name: Build firmware
-        uses: docker://espressif/idf:v5.2.3
+        uses: cnadler86/micropython-camera-API/.github/actions/build@main
         with:
-          args: >
-            bash -c "
-            pip install pyelftools &&
-            git clone https://github.com/micropython/micropython.git &&
-            cd micropython &&
-            git submodule update --init --depth 1 &&
-            make -C mpy-cross &&
-            cp -r ../boards/GOOUUU_ESP32S3_CAM ports/esp32/boards/ &&
-            cd ports/esp32 &&
-            make BOARD=GOOUUU_ESP32S3_CAM USER_C_MODULES=../../../src/micropython.cmake
-            "
+          board: GOOUUU_ESP32S3_CAM
+          boards-path: boards
 
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
           name: firmware-goouuu
-          path: micropython/ports/esp32/build-GOOUUU_ESP32S3_CAM/firmware.bin
+          path: build/firmware.bin
