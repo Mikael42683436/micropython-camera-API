@@ -12,7 +12,7 @@ jobs:
           submodules: recursive
 
       - name: Build firmware
-        uses: cnadler86/micropython-camera-API/.github/actions/build@main
+        uses: cnadler86/micropython-camera-API/.github/actions/build@master
         with:
           board: GOOUUU_ESP32S3_CAM
           boards-path: boards
